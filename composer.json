@@ -1,0 +1,22 @@
+{
+  "name": "webostin/direct-carrier-billing",
+  "description": "A simple library to handle DCP API",
+  "homepage": "https://github.com/webostin/direct-carrier-billing",
+  "authors": [
+    {
+      "name": "Michał Otfinowski",
+      "email": "michal@webostin.pl",
+      "role": "Developer"
+    }
+  ],
+  "license": "Apache-2.0",
+  "require": {
+    "php": ">=7.1",
+    "mervick/curl-helper": "^1.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Dcb\\": "src"
+    }
+  }
+}
