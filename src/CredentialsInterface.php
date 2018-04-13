@@ -8,5 +8,5 @@ interface CredentialsInterface
 {
     public function getLogin(): string;
 
-    public function getPAssword(): string;
+    public function getPassword(): string;
 }
