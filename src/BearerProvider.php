@@ -12,14 +12,17 @@ class BearerProvider implements BearerProviderInterface
      */
     protected $bearer;
 
+    protected $url;
+
     /**
      * @var CredentialsInterface
      */
     protected $credentials;
 
-    public function __construct(CredentialsInterface $credentials)
+    public function __construct(CredentialsInterface $credentials, $url)
     {
         $this->credentials = $credentials;
+        $this->url = $url;
     }
 
     public function getBearer(): BearerInterface
