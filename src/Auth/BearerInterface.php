@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Dcb;
+namespace Dcb\Auth;
 
 
 interface BearerInterface

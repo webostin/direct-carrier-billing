@@ -3,6 +3,16 @@
 namespace Dcb;
 
 
+use Dcb\Auth\BearerInterface;
+use Dcb\Auth\BearerProviderInterface;
+use Dcb\Model\BuyerInterface;
+use Dcb\Model\ServiceInterface;
+use Dcb\Model\TransactionInterface;
+use Dcb\Option\OptionableInterface;
+use Dcb\Option\OptionInterface;
+use Dcb\Request\AnnounceInterface;
+use Dcb\Request\SubscribeInterface;
+
 class Dcb
 {
     /**
@@ -83,7 +93,8 @@ class Dcb
 
     public function checkOp(BuyerInterface $buyer)
     {
-        return $this->callGet('/api/direct/checkop/' . $buyer->getPhone());
+        $action = '/api/direct/checkop/' . $buyer->getPhone();
+        return $this->callGet($action);
     }
 
     public function status(TransactionInterface $transaction)
@@ -91,7 +102,7 @@ class Dcb
         return $this->callGet('/api/direct/status/' . $transaction->getId());
     }
 
-    public function confirm(TransactionInterface $transaction, sting $token)
+    public function confirm(TransactionInterface $transaction, string $token)
     {
         $data = [
             'transactionId' => $transaction->getId(),
@@ -115,22 +126,20 @@ class Dcb
     protected function callPost($action, $data)
     {
         $headers = [
-            'Authorization' => $this->bearer->getToken(),
+            'Authorization' => 'bearer ' . $this->bearer->getToken(),
             'Content-Type' => 'application/json',
         ];
 
         $curl = new \CurlHelper($this->url . $action);
-        $curl->setPostFields($data)
+        $curl->setPostRaw(json_encode($data))
             ->setHeaders($headers);
-
         return $curl->exec();
     }
 
     protected function callGet($action)
     {
         $headers = [
-            'Authorization' => $this->bearer->getToken(),
-            'Content-Type' => 'application/json',
+            'Authorization' => 'bearer ' . $this->bearer->getToken(),
         ];
 
         $curl = new \CurlHelper($this->url . $action);

@@ -3,8 +3,6 @@
 namespace Dcb\Option;
 
 
-use Dcb\OptionInterface;
-
 class CarrierPlay implements OptionInterface
 {
     public function getKey(): string

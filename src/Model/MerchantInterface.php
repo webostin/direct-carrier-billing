@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Dcb;
+namespace Dcb\Model;
 
 
-interface TransactionInterface
+interface MerchantInterface
 {
     public function getId(): string;
 }

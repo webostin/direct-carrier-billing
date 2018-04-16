@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Dcb;
+namespace Dcb\Option;
 
 
 interface OptionableInterface

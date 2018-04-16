@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Dcb;
+namespace Dcb\Model;
 
 
 interface ServiceInterface

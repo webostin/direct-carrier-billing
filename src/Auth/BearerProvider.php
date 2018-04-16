@@ -1,10 +1,11 @@
 <?php
 
 
-namespace Dcb;
+namespace Dcb\Auth;
 
 
 use Dcb\Exceptions\InvalidCredentialsException;
+use Dcb\Util\JsonDecoder;
 
 class BearerProvider implements BearerProviderInterface
 {
@@ -48,7 +49,7 @@ class BearerProvider implements BearerProviderInterface
      * @return $this
      * @throws InvalidCredentialsException
      */
-    protected function login()
+    public function login()
     {
         $curl = new \CurlHelper($this->url . '/api/security/login');
         $curl->setPostFields([
@@ -58,8 +59,8 @@ class BearerProvider implements BearerProviderInterface
 
         $response = $curl->exec();
 
-        if ($response['status'] == 200 AND $response['content']) {
-            $jsonResponse = json_decode($response['content']);
+        if ($response['status'] == 200) {
+            $jsonResponse = $this->jsonCleanDecode($response['content']);
             if (isset($jsonResponse->token)) {
                 $bearer = new Bearer($jsonResponse->token, $jsonResponse->expires);
                 $this->bearer = $bearer;
@@ -68,5 +69,11 @@ class BearerProvider implements BearerProviderInterface
         }
 
         throw new InvalidCredentialsException();
+    }
+
+    private function jsonCleanDecode($json, $assoc = false)
+    {
+        $jsonDeocder = new JsonDecoder($json);
+        return $jsonDeocder->setAssoc($assoc)->decode();
     }
 }

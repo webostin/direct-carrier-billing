@@ -1,7 +1,12 @@
 <?php
 
-namespace Dcb;
+namespace Dcb\Request;
 
+
+use Dcb\Model\BuyerInterface;
+use Dcb\Model\MerchantInterface;
+use Dcb\Model\ServiceInterface;
+use Dcb\Option\OptionableInterface;
 
 interface AnnounceInterface extends OptionableInterface
 {

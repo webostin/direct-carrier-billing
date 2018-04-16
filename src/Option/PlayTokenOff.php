@@ -3,8 +3,6 @@
 namespace Dcb\Option;
 
 
-use Dcb\OptionInterface;
-
 class PlayTokenOff implements OptionInterface
 {
     public function getKey(): string
