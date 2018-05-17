@@ -52,12 +52,18 @@ class BearerProvider implements BearerProviderInterface
     public function login()
     {
         $curl = new \CurlHelper($this->url . '/api/security/login');
-        $curl->setPostFields([
+        $data = [
             'login' => $this->credentials->getLogin(),
             'password' => $this->credentials->getPassword(),
-        ]);
+        ];
+
+        $jsonData = json_encode($data);
+
+        $curl->setPostRaw($jsonData);
+        $curl->setHeaders(['Content-Type' => 'application/json']);
 
         $response = $curl->exec();
+
 
         if ($response['status'] == 200) {
             $jsonResponse = $this->jsonCleanDecode($response['content']);
