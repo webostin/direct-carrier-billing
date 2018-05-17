@@ -56,6 +56,7 @@ class Dcb
         $data = [
             'id' => $request->getId(),
             'merchantId' => $request->getMerchant()->getId(),
+            'notifyUrl' => $request->getNotifyUrl(),
             'buyer' => [
                 'phone' => $request->getBuyer()->getPhone(),
             ],

@@ -20,4 +20,6 @@ interface SubscribeInterface extends OptionableInterface
     public function getService(): ServiceInterface;
 
     public function getOptions(): array;
+
+    public function getNotifyUrl(): string;
 }
